@@ -13,7 +13,7 @@
 
 
 App::App()
-	:	BApplication("application/x-vnd.dw-TestApp")
+	:	BApplication("application/x-vnd.dw-SysLog")
 {
 	MainWindow *mainwin = new MainWindow();
 	openPrompt = new BFilePanel();
