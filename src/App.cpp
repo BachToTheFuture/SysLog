@@ -17,7 +17,7 @@ App::App()
 {
 	MainWindow *mainwin = new MainWindow();
 	openPrompt = new BFilePanel();
-	mainwin->Show();
+	openPrompt->Show();
 }
 
 App::~App()
