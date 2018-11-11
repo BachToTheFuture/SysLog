@@ -1,3 +1,7 @@
+/*
+ * Copyright 2018-2019 Bach Nguyen <bach5000@gmail.com>
+ * All rights reserved. Distributed under the terms of the MIT license.
+ */
 
 #include <Application.h>
 #include <InterfaceKit.h>
