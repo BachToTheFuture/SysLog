@@ -1,3 +1,8 @@
+/*
+ * Copyright 2018-2019 Bach Nguyen <bach5000@gmail.com>
+ * All rights reserved. Distributed under the terms of the MIT license.
+ */
+
 #include <Alert.h>
 #include <Application.h>
 #include <FilePanel.h>
