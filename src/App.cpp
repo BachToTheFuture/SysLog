@@ -1,8 +1,9 @@
 /*
+ * Copyright 1998 Will Dyson <will@cs.earlham.edu>
  * Copyright 2018-2019 Bach Nguyen <bach5000@gmail.com>
  * All rights reserved. Distributed under the terms of the MIT license.
  */
-
+ 
 #include <Alert.h>
 #include <Application.h>
 #include <FilePanel.h>
@@ -15,7 +16,6 @@
 App::App()
 	:	BApplication("application/x-vnd.dw-SysLog")
 {
-	MainWindow *mainwin = new MainWindow();
 	openPrompt = new BFilePanel();
 	openPrompt->Show();
 }
@@ -35,7 +35,6 @@ App::MessageReceived(BMessage* msg)
 			openPrompt->Show();
 			break;
 		}
-		
 		default:
 		{
 			BApplication::MessageReceived(msg);

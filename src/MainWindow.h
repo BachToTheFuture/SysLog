@@ -1,4 +1,5 @@
 /*
+ * Copyright 1998 Will Dyson <will@cs.earlham.edu>
  * Copyright 2018-2019 Bach Nguyen <bach5000@gmail.com>
  * All rights reserved. Distributed under the terms of the MIT license.
  */
@@ -13,7 +14,6 @@
 class MainWindow : public BWindow
 {
 public:
-						MainWindow();
 						MainWindow(entry_ref ref);
 		virtual void	MessageReceived(BMessage *msg);
 		virtual bool	QuitRequested(void);

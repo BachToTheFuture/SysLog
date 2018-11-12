@@ -1,2 +1,2 @@
 # SysLog
-A Haiku application to view system logs
+A Haiku system log viewer!
