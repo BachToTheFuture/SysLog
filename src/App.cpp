@@ -14,16 +14,19 @@
 
 
 App::App()
-	:	BApplication("application/x-vnd.dw-SysLog")
+	:
+	BApplication("application/x-vnd.dw-SysLog")
 {
-	openPrompt = new BFilePanel();
-	openPrompt->Show();
+	fOpenPrompt = new BFilePanel();
+	fOpenPrompt->Show();
 }
+
 
 App::~App()
 {
-	delete openPrompt;
+	delete fOpenPrompt;
 }
+
 
 void
 App::MessageReceived(BMessage* msg)
@@ -32,7 +35,7 @@ App::MessageReceived(BMessage* msg)
 	{
 		case kOpenFile:
 		{
-			openPrompt->Show();
+			fOpenPrompt->Show();
 			break;
 		}
 		default:
@@ -42,6 +45,7 @@ App::MessageReceived(BMessage* msg)
 		}
 	}
 }
+
 
 void
 App::RefsReceived(BMessage* msg)
@@ -69,10 +73,11 @@ App::RefsReceived(BMessage* msg)
 	}
 }
 
+
 int
 main (void)
 {
-	App *app = new App();
+	App* app = new App();
 	app->Run();
 	delete app;
 	return 0;

@@ -15,15 +15,15 @@ class MainWindow : public BWindow
 {
 public:
 						MainWindow(entry_ref ref);
-		virtual void	MessageReceived(BMessage *msg);
+		virtual void	MessageReceived(BMessage* msg);
 		virtual bool	QuitRequested(void);
 		virtual void	FrameResized(float width, float height);
 			
 private:
 		void			AddMenu();
-		BTextView*		logView;
-		BMenuBar* 		menuBar;
-		BScrollView* 	scrollView;
+		BTextView*		fLogView;
+		BMenuBar* 		fMenuBar;
+		BScrollView* 	fScrollView;
 };
 
 #endif

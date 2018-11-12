@@ -4,43 +4,38 @@
  * All rights reserved. Distributed under the terms of the MIT license.
  */
 
+#include "MainWindow.h"
+
 #include <Application.h>
 #include <InterfaceKit.h>
 #include <LayoutBuilder.h>
 #include <StorageKit.h>
 
-#include <stdlib.h>
-
 #include "App.h"
-#include "MainWindow.h"
 
 
 MainWindow::MainWindow(entry_ref ref)
-	:	BWindow(BRect(50,50,550,450),"SysLog",B_DOCUMENT_WINDOW, 0)
+	:
+	BWindow(BRect(50, 50, 550, 450),"SysLog",B_DOCUMENT_WINDOW, 0)
 {
 	BFile logFile;
-	BRect logFrame = Bounds();
-	BRect logRect;
 	
 	AddMenu();
 	
-	logFrame.top = menuBar->Bounds().bottom + 1.0;
-	logFrame.right -= B_V_SCROLL_BAR_WIDTH;
-	logRect = logFrame;
+	fLogView = new BTextView("log_view", B_WILL_DRAW);
+	BRect logRect = fLogView->TextRect();
 	logRect.OffsetTo(B_ORIGIN);
-	logRect.InsetBy(3.0,3.0);
+	logRect.InsetBy(5, 5);
+	fLogView->SetTextRect(logRect);
+	fLogView->MakeFocus(true);
+	fLogView->MakeEditable(false);
 	
-	logView = new BTextView(logFrame, "log_view", logRect,
-		B_FOLLOW_ALL_SIDES, B_WILL_DRAW|B_PULSE_NEEDED);
-	logView->MakeFocus(true);
-	logView->MakeEditable(false);
+	fScrollView = new BScrollView("scroll_view", fLogView,
+		B_WILL_DRAW, false, true, B_NO_BORDER);
 	
-	scrollView = new BScrollView("scroll_view", logView,
-		B_FOLLOW_ALL_SIDES, 0, false, true, B_NO_BORDER);
-
 	BLayoutBuilder::Group<>(this, B_VERTICAL, 0.0f)
-		.Add(menuBar)
-		.Add(scrollView)
+		.Add(fMenuBar)
+		.Add(fScrollView)
 	.End();
 
 	// Read the text from entry_ref
@@ -66,7 +61,7 @@ MainWindow::MainWindow(entry_ref ref)
 		}
 		ssize_t amt_read;
 		amt_read = logFile.Read((void*)text_buf, size);
-		logView->SetText(text_buf, amt_read);
+		fLogView->SetText(text_buf, amt_read);
 		delete[] text_buf;
 	}
 	Show();
@@ -79,31 +74,30 @@ MainWindow::AddMenu()
 	BMenu* menu;
 	BMenuItem* item;
 	
-	menuBar = new BMenuBar(Bounds(), "menu_bar");
+	fMenuBar = new BMenuBar(Bounds(), "menu_bar");
 
 	menu = new BMenu("File");
-	menu->AddItem(item=new BMenuItem("Open" B_UTF8_ELLIPSIS,
+	menu->AddItem(item = new BMenuItem("Open" B_UTF8_ELLIPSIS,
 		new BMessage(kOpenFile), 'O'));
 	item->SetTarget(be_app);
 	menu->AddItem(new BMenuItem("Quit",
 		new BMessage(kQuit), 'Q'));
-	menuBar->AddItem(menu);
+	fMenuBar->AddItem(menu);
 }
 
 
 void
 MainWindow::FrameResized(float width, float height)
 {
-	BRect logRect = logView->TextRect();
-	
+	BRect logRect = fLogView->TextRect();
 	logRect.right = logRect.left + 
 		((width - B_V_SCROLL_BAR_WIDTH) - 3.0);
-	logView->SetTextRect(logRect);
+	fLogView->SetTextRect(logRect);
 }
 
 
 void
-MainWindow::MessageReceived(BMessage *msg)
+MainWindow::MessageReceived(BMessage* msg)
 {
 	switch (msg->what)
 	{

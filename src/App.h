@@ -24,7 +24,7 @@ public:
 	virtual void	RefsReceived(BMessage* msg);
 
 private:
-	BFilePanel*		openPrompt;
+	BFilePanel*		fOpenPrompt;
 };
 
 #endif
