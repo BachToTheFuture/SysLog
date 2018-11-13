@@ -87,16 +87,6 @@ MainWindow::AddMenu()
 
 
 void
-MainWindow::FrameResized(float width, float height)
-{
-	BRect logRect = fLogView->TextRect();
-	logRect.right = logRect.left + 
-		((width - B_V_SCROLL_BAR_WIDTH) - 3.0);
-	fLogView->SetTextRect(logRect);
-}
-
-
-void
 MainWindow::MessageReceived(BMessage* msg)
 {
 	switch (msg->what)
