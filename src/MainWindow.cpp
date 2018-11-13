@@ -23,10 +23,6 @@ MainWindow::MainWindow(entry_ref ref)
 	AddMenu();
 	
 	fLogView = new BTextView("log_view", B_WILL_DRAW);
-	BRect logRect = fLogView->TextRect();
-	logRect.OffsetTo(B_ORIGIN);
-	logRect.InsetBy(5, 5);
-	fLogView->SetTextRect(logRect);
 	fLogView->MakeFocus(true);
 	fLogView->MakeEditable(false);
 	
@@ -39,7 +35,7 @@ MainWindow::MainWindow(entry_ref ref)
 	.End();
 
 	// Read the text from entry_ref
-	char title[9] = "SysLog: ";
+	BString title("SysLog: ");
 	char name[B_FILE_NAME_LENGTH];
 	BEntry entry;
 	off_t size;
@@ -47,14 +43,14 @@ MainWindow::MainWindow(entry_ref ref)
 	if (entry.InitCheck() == B_NO_ERROR)
 	{
 		entry.GetName(name);
-		strcat(title, name);
+		title->Append(name);
 		SetTitle(title);
 	}
 	logFile.SetTo(&ref, B_READ_ONLY);
 	if (logFile.InitCheck() == B_NO_ERROR)
 	{
 		logFile.GetSize(&size);
-		char* text_buf = new char[size];
+		BString text_buf;
 		if (text_buf == NULL)
 		{
 			// Out of memory
@@ -62,7 +58,6 @@ MainWindow::MainWindow(entry_ref ref)
 		ssize_t amt_read;
 		amt_read = logFile.Read((void*)text_buf, size);
 		fLogView->SetText(text_buf, amt_read);
-		delete[] text_buf;
 	}
 	Show();
 }
