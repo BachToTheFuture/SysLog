@@ -85,9 +85,6 @@ MainWindow::AddMenu()
 	menu->AddItem(item=new BMenuItem("Open" B_UTF8_ELLIPSIS,
 		new BMessage(kOpenFile), 'O'));
 	item->SetTarget(be_app);
-	menu->AddItem(new BMenuItem("Close",
-		new BMessage(B_QUIT_REQUESTED), 'W'));
-	menu->AddSeparatorItem();
 	menu->AddItem(new BMenuItem("Quit",
 		new BMessage(kQuit), 'Q'));
 	menuBar->AddItem(menu);
