@@ -39,7 +39,7 @@ MainWindow::MainWindow(entry_ref ref)
 	.End();
 
 	// Read the text from entry_ref
-	char title[9] = "SysLog: ";
+	BString title("SysLog: ");
 	char name[B_FILE_NAME_LENGTH];
 	BEntry entry;
 	off_t size;
@@ -47,7 +47,7 @@ MainWindow::MainWindow(entry_ref ref)
 	if (entry.InitCheck() == B_NO_ERROR)
 	{
 		entry.GetName(name);
-		strcat(title, name);
+		title.Append(name);
 		SetTitle(title);
 	}
 	logFile.SetTo(&ref, B_READ_ONLY);
@@ -83,16 +83,6 @@ MainWindow::AddMenu()
 	menu->AddItem(new BMenuItem("Quit",
 		new BMessage(kQuit), 'Q'));
 	fMenuBar->AddItem(menu);
-}
-
-
-void
-MainWindow::FrameResized(float width, float height)
-{
-	BRect logRect = fLogView->TextRect();
-	logRect.right = logRect.left + 
-		((width - B_V_SCROLL_BAR_WIDTH) - 3.0);
-	fLogView->SetTextRect(logRect);
 }
 
 

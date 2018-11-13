@@ -17,7 +17,6 @@ public:
 						MainWindow(entry_ref ref);
 		virtual void	MessageReceived(BMessage* msg);
 		virtual bool	QuitRequested(void);
-		virtual void	FrameResized(float width, float height);
 			
 private:
 		void			AddMenu();
